@@ -6,9 +6,76 @@ public class Program
 {
     private static void Main(string[] args)
     {
+        Menu();
+       
 
 
-        Console.WriteLine("Hello, World!");
+
+
+
+
+
+    }
+
+
+
+
+    static void Menu()
+    {
+        Console.WriteLine("1 - Administración del centro\r\n 2 - Administración de adopciones\r\n 3 - Administración de bienestar animal\r\n 4 - Simulación de interacciones\r\n 5 - Finalizar programa");
+        int opc = int.Parse(Console.ReadLine());
+        switch (opc)
+        {
+            case 1:
+                Console.WriteLine("1 - Administración de personas\r\n2 - Administración de mascotas\r\n3 - Regresar a menú anterior");
+                int opc2 = int.Parse(Console.ReadLine());
+                switch (opc2)
+                {
+                    case 1:
+                        Console.WriteLine("1 - Mostrar todas la personas registradas\r\n2 - Registrar persona nueva\r\n3 - Buscar personas por nombre\r\n4 - Examinar persona\r\n5 - Regresar al menú anterior");
+                        int opc3 = int.Parse(Console.ReadLine());
+                        switch (opc3)
+                        {
+                            case 1:
+                                Console.WriteLine("1 - Mostrar todas la personas registradas\r\n2 - Registrar persona nueva\r\n3 - Buscar personas por nombre\r\n4 - Examinar persona\r\n5 - Regresar al menú anterior");
+
+
+
+                                break;
+                            case 2:
+                                Console.WriteLine();
+                                break;
+                            case 3:
+                                Console.WriteLine();
+
+                                break;
+                        }
+                                break;
+                            
+                        
+                                
+                    case 2:
+                        Console.WriteLine();
+                        break;
+                    case 3:
+                        Console.WriteLine();
+                        break;
+                
+                        }
+                break;
+            case 2:
+                Console.WriteLine();
+                break; 
+            case 3:
+                Console.WriteLine();
+                break;
+            case 4:
+                Console.WriteLine();
+                break;
+            case 5:
+                Console.WriteLine();
+                break;
+        }
     }
 
     public interface IMascota
