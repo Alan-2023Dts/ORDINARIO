@@ -46,9 +46,9 @@ public class Program
             get { return _edad; }
             set
             {
-                if (value <= 0)
+                if (value <= 0 || value > EdadMaxima)
                 {
-                    throw new Exception("La edad debe ser mayor a 0.");
+                    throw new Exception($"La edad debe ser mayor a 0 y no exceder la edad máxima de {EdadMaxima} años.");
                 }
                 _edad = value;
             }
@@ -84,37 +84,83 @@ public class Program
             }
         }
 
-        public Mascota(string nombre, int edad, TemperamentoEnum temperamento, string dueño, EspecieMascotaEnum especie)
+        public int EdadMaxima { get; protected set; }
+
+        public Mascota(string nombre, int edad, TemperamentoEnum temperamento, string dueño, EspecieMascotaEnum especie, int edadMaxima)
         {
             Id = lastIdAdded + 1;
             lastIdAdded++;
 
             Nombre = nombre;
+            EdadMaxima = edadMaxima;
             Edad = edad;
             Temperamento = temperamento.ToString();
             Dueño = dueño;
             Especie = especie;
         }
 
-        public void HacerRuido()
+     
+        public class Perro : Mascota
         {
-            switch (Especie)
+            public Perro(string nombre, int edad, TemperamentoEnum temperamento, string dueño)
+                : base(nombre, edad, temperamento, dueño, EspecieMascotaEnum.Perro, 14)
             {
-                case EspecieMascotaEnum.Perro:
-                    Console.WriteLine("¡Guau!");
-                    break;
-                case EspecieMascotaEnum.Gato:
-                    Console.WriteLine("¡Miau! ");
-                    break;
-                case EspecieMascotaEnum.Capibara:
-                    Console.WriteLine("cui cui");
-                    break;
-                default:
-                    Console.WriteLine("¡Haciendo ruido!");
-                    break;
+            }
+
+            public void MoverCola()
+            {
+                Console.WriteLine("Cola en movimiento.");
+            }
+
+            public void Gruñir()
+            {
+                Console.WriteLine("Grrrrr...");
+            }
+
+            public  void HacerRuido()
+            {
+                Console.WriteLine("¡Guau! ¡Guau! ");
+            }
+        }
+
+        public class Gato : Mascota
+        {
+            public Gato(string nombre, int edad, TemperamentoEnum temperamento, string dueño)
+                : base(nombre, edad, temperamento, dueño, EspecieMascotaEnum.Gato, 18)
+            {
+            }
+
+            public void Ronronear()
+            {
+                Console.WriteLine("Ronroneando...");
+            }
+
+            public void Rasguñar()
+            {
+                Console.WriteLine("¡Rasguño!");
+            }
+
+            public void HacerRuido()
+            {
+                Console.WriteLine("¡Miau! ¡Miau!");
+            }
+        }
+
+        public class Capibara : Mascota
+        {
+            public Capibara(string nombre, int edad, string dueño)
+                : base(nombre, edad, TemperamentoEnum.Amable, dueño, EspecieMascotaEnum.Capibara, 11)
+            {
+            }
+
+            public  void HacerRuido()
+            {
+                Console.WriteLine("¡Cui! ¡Cui!");
             }
         }
     }
+
+   
 
     public enum EspecieMascotaEnum
     {
@@ -128,32 +174,5 @@ public class Program
         Amable,
         Nervioso,
         Agresivo
-    }
-
-    public class Perro : Mascota
-    {
-        public Perro(string nombre, int edad, TemperamentoEnum temperamento, string dueño)
-            : base(nombre, edad, temperamento, dueño, EspecieMascotaEnum.Perro)
-        {
-       
-        }
-    }
-
-    public class Gato : Mascota
-    {
-        public Gato(string nombre, int edad, TemperamentoEnum temperamento, string dueño)
-            : base(nombre, edad, temperamento, dueño, EspecieMascotaEnum.Gato)
-        {
-           
-        }
-    }
-
-    public class Capibara : Mascota
-    {
-        public Capibara(string nombre, int edad, TemperamentoEnum temperamento, string dueño)
-            : base(nombre, edad, temperamento, dueño, EspecieMascotaEnum.Capibara)
-        {
-
-        }
     }
 }
