@@ -1,13 +1,11 @@
 using System;
 
-internal class Program
+public class Program
 {
     private static void Main(string[] args)
     {
         Console.WriteLine("Hello, World!");
     }
-
-
 
     public class Mascota
     {
@@ -20,6 +18,12 @@ internal class Program
             private set { _id = value; }
         }
 
+        private EspecieMascotaEnum _especie;
+        public EspecieMascotaEnum Especie
+        {
+            get { return _especie; }
+            set { _especie = value; }
+        }
 
         private string _nombre;
         public string Nombre
@@ -36,7 +40,6 @@ internal class Program
             }
         }
 
-
         private int _edad;
         public int Edad
         {
@@ -51,8 +54,6 @@ internal class Program
             }
         }
 
-
-
         private string _temperamento;
         public string Temperamento
         {
@@ -61,7 +62,7 @@ internal class Program
             {
                 if (string.IsNullOrWhiteSpace(value))
                 {
-                    throw new Exception("El temperamneto no puede estar en blanco.");
+                    throw new Exception("El temperamento no puede estar en blanco.");
                 }
 
                 _temperamento = value;
@@ -76,72 +77,83 @@ internal class Program
             {
                 if (string.IsNullOrWhiteSpace(value))
                 {
-                    throw new Exception("EL perro debe tener dueño.");
+                    throw new Exception("La mascota debe tener dueño.");
                 }
 
                 _dueño = value;
             }
         }
 
-
-        public Mascota(string nombre, int edad, string temperamento,string dueño)
+        public Mascota(string nombre, int edad, TemperamentoEnum temperamento, string dueño, EspecieMascotaEnum especie)
         {
-            Nombre = nombre;
-            Edad = edad;
-            Temperamento = temperamento;
-            Dueño = dueño;
-
             Id = lastIdAdded + 1;
             lastIdAdded++;
+
+            Nombre = nombre;
+            Edad = edad;
+            Temperamento = temperamento.ToString();
+            Dueño = dueño;
+            Especie = especie;
         }
 
-
+        public void HacerRuido()
+        {
+            switch (Especie)
+            {
+                case EspecieMascotaEnum.Perro:
+                    Console.WriteLine("¡Guau!");
+                    break;
+                case EspecieMascotaEnum.Gato:
+                    Console.WriteLine("¡Miau! ");
+                    break;
+                case EspecieMascotaEnum.Capibara:
+                    Console.WriteLine("cui cui");
+                    break;
+                default:
+                    Console.WriteLine("¡Haciendo ruido!");
+                    break;
+            }
+        }
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-    private void HacerRuido()
+    public enum EspecieMascotaEnum
     {
-
+        Perro,
+        Gato,
+        Capibara
     }
 
-    private void CambarDueño()
+    public enum TemperamentoEnum
     {
-
+        Amable,
+        Nervioso,
+        Agresivo
     }
 
-
-
-
-    public class Perros
+    public class Perro : Mascota
     {
-     
-
+        public Perro(string nombre, int edad, TemperamentoEnum temperamento, string dueño)
+            : base(nombre, edad, temperamento, dueño, EspecieMascotaEnum.Perro)
+        {
+       
+        }
     }
 
-    public class Gatos
+    public class Gato : Mascota
     {
-
-
+        public Gato(string nombre, int edad, TemperamentoEnum temperamento, string dueño)
+            : base(nombre, edad, temperamento, dueño, EspecieMascotaEnum.Gato)
+        {
+           
+        }
     }
 
-    public class Capibaras
+    public class Capibara : Mascota
     {
+        public Capibara(string nombre, int edad, TemperamentoEnum temperamento, string dueño)
+            : base(nombre, edad, temperamento, dueño, EspecieMascotaEnum.Capibara)
+        {
 
-
+        }
     }
-
-
-
 }
