@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using static Program;
 
 public class Program
@@ -20,7 +21,7 @@ public class Program
 
 
 
-    static void Menu()
+    static void Menu() 
     {
         Console.WriteLine("1 - Administración del centro\r\n 2 - Administración de adopciones\r\n 3 - Administración de bienestar animal\r\n 4 - Simulación de interacciones\r\n 5 - Finalizar programa");
         int opc = int.Parse(Console.ReadLine());
@@ -37,16 +38,15 @@ public class Program
                         switch (opc3)
                         {
                             case 1:
-                                Console.WriteLine("1 - Mostrar todas la personas registradas\r\n2 - Registrar persona nueva\r\n3 - Buscar personas por nombre\r\n4 - Examinar persona\r\n5 - Regresar al menú anterior");
 
-
+                            //    MostrarPersonas();
 
                                 break;
                             case 2:
-                                Console.WriteLine();
+                             //   RegistrarPersona();
                                 break;
                             case 3:
-                                Console.WriteLine();
+                              //  BuscarPersonaPorNombre();
 
                                 break;
                         }
@@ -55,11 +55,26 @@ public class Program
                         
                                 
                     case 2:
-                        Console.WriteLine();
+                        Console.WriteLine("1 - Mostrar todas las mascotas registradas\r\n2 - Registrar mascota nueva\r\n3 - Buscar mascotas por especie\r\n4 - Buscar mascotas por nombre\r\n5 - Examinar mascota\r\n6 - Volver al menú anterior");
                         break;
+
+                                                   
+                        int opc4 = int.Parse(Console.ReadLine());
+                        switch (opc4)
+                        {
+                            case 1:
+                                Console.WriteLine("1 - Ver mascotas disponibles para adoptar\r\n2 - Adoptar mascota\r\n3 - Regresar al menú anterior");
+                                break;
+                        }
+                           
+        
+
                     case 3:
-                        Console.WriteLine();
+                        Console.WriteLine("1 - Ver mascotas disponibles para adoptar\r\n2 - Adoptar mascota\r\n3 - Regresar al menú anterior");
                         break;
+
+
+
                 
                         }
                 break;
@@ -358,12 +373,78 @@ public class Program
             }
         }
     }
+
+
+
+
+
+    // Funciones Menu- administracion de personas
+    class FuncioneMenu
+    {
+        private static void MostrarPersonas(List<Persona> personas)
+        {
+            Console.WriteLine("Personas registradas en el centro:");
+            foreach (var persona in personas)
+            {
+                Console.WriteLine($"Id: {persona.Id}, Nombre: {persona.Nombre}");
+            }
+        }
+
+        private static void RegistrarPersona(List<Persona> personas)
+        {
+            Console.Write("Ingrese el nombre de la nueva persona: ");
+            string nombre = Console.ReadLine();
+
+            try
+            {
+                Persona nuevaPersona = new Persona(nombre);
+                personas.Add(nuevaPersona);
+                Console.WriteLine($"Persona registrada exitosamente. Id: {nuevaPersona.Id}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al registrar persona: {ex.Message}");
+            }
+        }
+
+        private static void BuscarPersonaPorNombre(List<Persona> personas)
+        {
+            Console.Write("Ingrese el nombre a buscar: ");
+            string nombreBusqueda = Console.ReadLine();
+
+            Console.WriteLine($"Personas cuyo nombre contiene '{nombreBusqueda}':");
+            foreach (var persona in personas)
+            {
+                if (persona.Nombre.Contains(nombreBusqueda, StringComparison.OrdinalIgnoreCase))
+                {
+                    Console.WriteLine($"Id: {persona.Id}, Nombre: {persona.Nombre}");
+                }
+            }
+        }
+
+    }
+
+
+
+
 }
 
 
 
- 
 
-  
-  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
