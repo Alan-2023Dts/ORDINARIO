@@ -1,3 +1,6 @@
+//solito hice el codigo pipipi tenga piedad si estaba muy largo
+
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
