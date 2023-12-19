@@ -1,20 +1,26 @@
 using System;
+using System.Collections.Generic;
 using static Program;
 
 public class Program
 {
     private static void Main(string[] args)
     {
+
+
         Console.WriteLine("Hello, World!");
     }
 
-
+    public interface IMascota
+    {
+        void HacerRuido();
+    }
     public interface IAcariciable
     {
         void ResponderACaricia();
     }
 
-    public class Mascota
+    public class Mascota : IMascota
     {
         private static int lastIdAdded = 0;
 
@@ -197,11 +203,12 @@ public class Program
             Nervioso,
             Agresivo
         }
+
+        void IMascota.HacerRuido()
+        {
+            throw new NotImplementedException();
+        }
     }
-
-
-
-
 
 
 
@@ -209,6 +216,7 @@ public class Program
 
     public class Persona
     {
+
         private static int lastIdAdded = 0;
 
         private int _id;
@@ -227,22 +235,68 @@ public class Program
             {
                 if (string.IsNullOrWhiteSpace(value))
                 {
-                    throw new Exception("El nombre de una Mascota no puede estar en blanco.");
+                    throw new Exception("El nombre de una Persona no puede estar en blanco.");
                 }
 
                 _nombre = value;
             }
         }
 
+
+        private List<IMascota> mascotas;
+
         public Persona(string nombre)
         {
             Id = lastIdAdded + 1;
             lastIdAdded++;
-
             Nombre = nombre;
-
+            mascotas = new List<IMascota>();
         }
 
+        public List<IMascota> ObtenerMascotas()
+        {
+            return mascotas;
+        }
+
+        public IMascota ObtenerMascotaPorId(int id)
+        {
+            return mascotas.Find(m => m is Mascota && ((Mascota)m).Id == id);
+        }
+
+        public void AgregarMascota(IMascota nuevaMascota, string nombreDueño)
+        {
+            mascotas.Add(nuevaMascota);
+            Console.WriteLine($"{nombreDueño} agrega a {((Mascota)nuevaMascota).Nombre} a sus mascotas.");
+            nuevaMascota.HacerRuido();
+        }
+
+        public void AcariciarMascota(IAcariciable mascota, string nombreDueño)
+        {
+            Console.Write($"{nombreDueño} acaricia a {((Mascota)mascota).Nombre}. ");
+            mascota.ResponderACaricia();
+        }
+
+        public void AcariciarMascotas(string nombreDueño)
+        {
+            foreach (var mascota in mascotas)
+            {
+                if (mascota is IAcariciable)
+                {
+                    AcariciarMascota((IAcariciable)mascota, nombreDueño);
+                }
+                else
+                {
+                    Console.WriteLine($"{nombreDueño} intenta acariciar a una mascota, pero no es posible.");
+                }
+            }
+        }
     }
 }
+
+
+
+ 
+
+  
+  
 
