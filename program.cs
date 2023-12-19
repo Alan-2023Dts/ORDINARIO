@@ -1,10 +1,17 @@
 using System;
+using static Program;
 
 public class Program
 {
     private static void Main(string[] args)
     {
         Console.WriteLine("Hello, World!");
+    }
+
+
+    public interface IAcariciable
+    {
+        void ResponderACaricia();
     }
 
     public class Mascota
@@ -99,8 +106,8 @@ public class Program
             Especie = especie;
         }
 
-     
-        public class Perro : Mascota
+
+        public class Perro : Mascota, IAcariciable
         {
             public Perro(string nombre, int edad, TemperamentoEnum temperamento, string dueño)
                 : base(nombre, edad, temperamento, dueño, EspecieMascotaEnum.Perro, 14)
@@ -109,21 +116,21 @@ public class Program
 
             public void MoverCola()
             {
-                Console.WriteLine("Cola en movimiento.");
+                Console.WriteLine("Moviendo cola");
             }
 
-            public void Gruñir()
-            {
-                Console.WriteLine("Grrrrr...");
-            }
-
-            public  void HacerRuido()
+            public void HacerRuido()
             {
                 Console.WriteLine("¡Guau! ¡Guau! ");
             }
+
+            public void ResponderACaricia()
+            {
+                MoverCola();
+            }
         }
 
-        public class Gato : Mascota
+        public class Gato : Mascota, IAcariciable
         {
             public Gato(string nombre, int edad, TemperamentoEnum temperamento, string dueño)
                 : base(nombre, edad, temperamento, dueño, EspecieMascotaEnum.Gato, 18)
@@ -144,6 +151,22 @@ public class Program
             {
                 Console.WriteLine("¡Miau! ¡Miau!");
             }
+
+            public void ResponderACaricia()
+            {
+                if (Temperamento == TemperamentoEnum.Amable.ToString())
+                {
+                    Ronronear();
+                }
+                else if (Temperamento == TemperamentoEnum.Nervioso.ToString())
+                {
+                    Ronronear();
+                }
+                else if (Temperamento == TemperamentoEnum.Agresivo.ToString())
+                {
+                    Rasguñar();
+                }
+            }
         }
 
         public class Capibara : Mascota
@@ -153,26 +176,73 @@ public class Program
             {
             }
 
-            public  void HacerRuido()
+            public void HacerRuido()
             {
-                Console.WriteLine("¡Cui! ¡Cui!");
+                Console.WriteLine("¡Cui! ¡Cui! ");
             }
+        }
+
+
+
+        public enum EspecieMascotaEnum
+        {
+            Perro,
+            Gato,
+            Capibara
+        }
+
+        public enum TemperamentoEnum
+        {
+            Amable,
+            Nervioso,
+            Agresivo
         }
     }
 
-   
 
-    public enum EspecieMascotaEnum
-    {
-        Perro,
-        Gato,
-        Capibara
-    }
 
-    public enum TemperamentoEnum
+
+
+
+
+
+
+    public class Persona
     {
-        Amable,
-        Nervioso,
-        Agresivo
+        private static int lastIdAdded = 0;
+
+        private int _id;
+        public int Id
+        {
+            get { return _id; }
+            private set { _id = value; }
+        }
+
+
+        private string _nombre;
+        public string Nombre
+        {
+            get { return _nombre; }
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new Exception("El nombre de una Mascota no puede estar en blanco.");
+                }
+
+                _nombre = value;
+            }
+        }
+
+        public Persona(string nombre)
+        {
+            Id = lastIdAdded + 1;
+            lastIdAdded++;
+
+            Nombre = nombre;
+
+        }
+
     }
 }
+
